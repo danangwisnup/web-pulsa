@@ -30,7 +30,13 @@
                                     <td>(<?= $result['email']; ?>) <?= $result_metode_topup['jenis']; ?></td>
                                     <td><?= $result['nominal']; ?></td>
                                     <td><?= $result['tanggal']; ?></td>
-                                    <td><?= $result['status']; ?></td>
+                                    <?php if ($result['status'] == 'success') { ?>
+                                        <td><label class="badge badge-success"><?= $result['status']; ?></label></td>
+                                    <?php } else if ($result['status'] == 'pending') { ?>
+                                        <td><label class="badge badge-warning"><?= $result['status']; ?></label></td>
+                                    <?php } else { ?>
+                                        <td><label class="badge badge-danger"><?= $result['status']; ?></label></td>
+                                    <?php } ?>
                                     <td>
                                         <button type="submit" class="badge btn-dark" onclick="topup_read(<?php echo $result['id_topup']; ?>)" data-toggle="modal" data-target="#topup_modal_view"><i class="fa fa-pencil"></i></button>
                                         <button type="submit" class="badge btn-danger" onclick="topup_delete(<?php echo $result['id_topup']; ?>)"><i class="fa fa-remove"></i></button>
