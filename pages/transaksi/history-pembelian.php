@@ -27,9 +27,9 @@
                                 <td><?= $result_pembelian['harga']; ?></td>
                                 <td><?= $result_pembelian['tanggal']; ?></td>
                                 <td>
-                                    <?php if ($result_pembelian['status'] == 'Pending') { ?>
+                                    <?php if ($result_pembelian['status'] == 'pending') { ?>
                                         <label class="badge badge-warning"><?= $result_pembelian['status']; ?></label>
-                                    <?php } else if ($result_pembelian['status'] == 'Success') { ?>
+                                    <?php } else if ($result_pembelian['status'] == 'success') { ?>
                                         <label class="badge badge-success"><?= $result_pembelian['status']; ?></label>
                                     <?php } else { ?>
                                         <label class="badge badge-danger"><?= $result_pembelian['status']; ?></label>

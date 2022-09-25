@@ -31,9 +31,9 @@
                                 <td><?= $result_topup['nominal']; ?></td>
                                 <td><?= $result_topup['tanggal']; ?></td>
                                 <td>
-                                    <?php if ($result_topup['status'] == 'Pending') { ?>
+                                    <?php if ($result_topup['status'] == 'pending') { ?>
                                         <label class="badge badge-warning"><?= $result_topup['status']; ?></label>
-                                    <?php } else if ($result_topup['status'] == 'Success') { ?>
+                                    <?php } else if ($result_topup['status'] == 'success') { ?>
                                         <label class="badge badge-success"><?= $result_topup['status']; ?></label>
                                     <?php } else { ?>
                                         <label class="badge badge-danger"><?= $result_topup['status']; ?></label>

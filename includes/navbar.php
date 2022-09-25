@@ -68,7 +68,7 @@
                     <li class="nav-item dropdown nav-profile">
                         <a class="nav-link dropdown-toggle" id="profile" href="javascript:;" data-toggle="dropdown">
                             <span class="nav-profile-text"><?= $u_nama; ?></span>
-                            <img src="images/faces/face1.jpg" class="rounded-circle" alt="profile" />
+                            <img src="assets/images/profile.jpg" class="rounded-circle" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profile">
                             <a href="javascript:;" class="dropdown-item">

@@ -28,7 +28,13 @@
                                     <td>(<?= $result['email']; ?>) <?= $result['deskripsi']; ?></td>
                                     <td><?= $result['harga']; ?></td>
                                     <td><?= $result['tanggal']; ?></td>
-                                    <td><?= $result['status']; ?></td>
+                                    <?php if ($result['status'] == 'success') { ?>
+                                        <td><label class="badge badge-success"><?= $result['status']; ?></label></td>
+                                    <?php } else if ($result['status'] == 'pending') { ?>
+                                        <td><label class="badge badge-warning"><?= $result['status']; ?></label></td>
+                                    <?php } else { ?>
+                                        <td><label class="badge badge-danger"><?= $result['status']; ?></label></td>
+                                    <?php } ?>
                                     <td>
                                         <button type="submit" class="badge btn-dark" onclick="pembelian_read(<?php echo $result['id_pembelian']; ?>)" data-toggle="modal" data-target="#pembelian_modal_view"><i class="fa fa-pencil"></i></button>
                                         <button type="submit" class="badge btn-danger" onclick="pembelian_delete(<?php echo $result['id_pembelian']; ?>)"><i class="fa fa-remove"></i></button>

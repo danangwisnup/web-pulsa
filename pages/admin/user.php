@@ -30,7 +30,12 @@
                                     <td><?= $result['email']; ?></td>
                                     <td><?= $result['level']; ?></td>
                                     <td><?= $result['balance']; ?></td>
-                                    <td><?= $result['status']; ?></td>
+                                    <?php if ($result['status'] == 'aktif') { ?>
+                                        <td><label class="badge badge-success"><?= $result['status']; ?></label></td>
+                                    <?php } else { ?>
+                                        <td><label class="badge badge-danger"><?= $result['status']; ?></label></td>
+                                    <?php } ?>
+
                                     <td>
                                         <button type="submit" class="badge btn-dark" onclick="user_read(<?php echo $result['id_user']; ?>)" data-toggle="modal" data-target="#user_modal_view"><i class="fa fa-pencil"></i></button>
                                         <button type="submit" class="badge btn-danger" onclick="user_delete(<?php echo $result['id_user']; ?>)"><i class="fa fa-remove"></i></button>
