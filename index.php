@@ -31,9 +31,9 @@ if (!isset($_SESSION['email'])) {
                           <div class="d-flex align-items-center">
                             <i class="icon-user icon-lg"></i>
                             <div class="ml-4">
-                              <h4 class="font-weight-bold"><?= $u_nama; ?></h4>
+                              <h4 class="font-weight-bold" id="getNama"><?= $u_nama; ?></h4>
                               <p class="font-weight-light mb-3"><?= $email; ?></p>
-                              <p class="mb-0 text-success font-weight-bold"><?= $u_level; ?></p>
+                              <p class="mb-0 text-success font-weight-bold" id="getLevel"><?= $u_level; ?></p>
                             </div>
                           </div>
                         </div>
@@ -48,7 +48,7 @@ if (!isset($_SESSION['email'])) {
                             <div class="d-inline-block pt-3">
                               <div class="d-md-flex">
                                 <h2 class="mb-0" id="getBalance"><?= "Rp " . number_format((float)$u_balance, 0, ',', '.') . ",00"; ?></h2>
-                                <button type="submit" onclick="reload_balance()" class="btn btn-outline-light btn-icon-text ml-2 text-dark">
+                                <button type="submit" onclick="reload_atribut_user()" class="btn btn-outline-light btn-icon-text ml-2 text-dark">
                                   <i class="icon-refresh btn-icon-prepend"></i> Reload
                                 </button>
                               </div>

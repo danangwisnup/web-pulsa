@@ -12,7 +12,7 @@
                     <div class="form-group row">
                         <div class="col-2">
                             <label for="recipient-name" class="col-form-label">#Order </label>
-                            <input type="text" class="form-control" id="topup_id" name="topup_id" readonly>
+                            <input type="number" class="form-control" id="topup_id" name="topup_id" readonly>
                         </div>
                         <div class="col-10">
                             <label for="recipient-name" class="col-form-label">Email </label>
@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Nominal </label>
-                            <input type="text" class="form-control" id="topup_nominal" name="topup_nominal" readonly>
+                            <input type="number" class="form-control" id="topup_nominal" name="topup_nominal" readonly>
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Status </label>

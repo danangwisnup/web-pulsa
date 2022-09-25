@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Balance </label>
-                            <input type="text" class="form-control" id="user_balance" name="user_balance">
+                            <input type="number" class="form-control" id="user_balance" name="user_balance">
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Status </label>

@@ -20,14 +20,18 @@ function load(nama) {
   }
 }
 
-function reload_balance() {
+function reload_atribut_user() {
   $("#getBalance").html("Reload...");
   $.ajax({
-    url: "proses/transaksi/reload_balance.php",
+    url: "proses/transaksi/reload_atribut_user.php",
     type: "POST",
     data: {},
     success: function (data) {
-      $("#getBalance").html(data);
+      var json = $.parseJSON(data);
+      $("#getNama").html(json.get_nama);
+      $("#getEmail").html(json.get_email);
+      $("#getBalance").html(json.get_balance);
+      $("#getLevel").html(json.get_level);
     },
   });
 }
@@ -47,7 +51,7 @@ function pembelian_pulsa() {
     },
     success: function (data) {
       $("#result").html(data);
-      reload_balance();
+      reload_atribut_user();
     },
   });
 }
@@ -112,7 +116,7 @@ function user_update() {
         confirmButtonText: "OK",
       });
       load("pages/admin/user");
-      reload_balance();
+      reload_atribut_user();
     },
   });
 }

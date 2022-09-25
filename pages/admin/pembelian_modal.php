@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Harga </label>
-                            <input type="text" class="form-control" id="pembelian_harga" name="pembelian_harga" readonly>
+                            <input type="number" class="form-control" id="pembelian_harga" name="pembelian_harga" readonly>
                         </div>
                         <div class="col">
                             <label for="recipient-name" class="col-form-label">Status </label>
