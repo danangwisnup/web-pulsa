@@ -73,22 +73,12 @@ function topup_balance() {
   });
 }
 
-function user_read(id) {
-  $.ajax({
-    url: "proses/admin/user_read.php",
-    type: "POST",
-    data: {
-      id: id,
-    },
-    success: function (data) {
-      var json = $.parseJSON(data);
-      document.getElementById("user_nama").value = json.nama;
-      document.getElementById("user_level").value = json.level;
-      document.getElementById("user_email").value = json.email;
-      document.getElementById("user_balance").value = json.balance;
-      document.getElementById("user_status").value = json.status;
-    },
-  });
+function user_read(nama, email, level, balance, status) {
+  document.getElementById("user_nama").value = nama;
+  document.getElementById("user_email").value = email;
+  document.getElementById("user_level").value = level;
+  document.getElementById("user_balance").value = balance;
+  document.getElementById("user_status").value = status;
 }
 
 function user_update() {
@@ -143,22 +133,12 @@ function user_delete(id) {
   }
 }
 
-function pembelian_read(id) {
-  $.ajax({
-    url: "proses/admin/pembelian_read.php",
-    type: "POST",
-    data: {
-      id: id,
-    },
-    success: function (data) {
-      var json = $.parseJSON(data);
-      document.getElementById("pembelian_id").value = json.id_pembelian;
-      document.getElementById("pembelian_email").value = json.email;
-      document.getElementById("pembelian_deskripsi").value = json.deskripsi;
-      document.getElementById("pembelian_harga").value = json.harga;
-      document.getElementById("pembelian_status").value = json.status;
-    },
-  });
+function pembelian_read(id_pembelian, email, deskripsi, harga, status) {
+  document.getElementById("pembelian_id").value = id_pembelian;
+  document.getElementById("pembelian_email").value = email;
+  document.getElementById("pembelian_deskripsi").innerHTML = deskripsi;
+  document.getElementById("pembelian_harga").value = harga;
+  document.getElementById("pembelian_status").value = status;
 }
 
 function pembelian_update() {
@@ -206,22 +186,12 @@ function pembelian_delete(id) {
   }
 }
 
-function topup_read(id) {
-  $.ajax({
-    url: "proses/admin/topup_read.php",
-    type: "POST",
-    data: {
-      id: id,
-    },
-    success: function (data) {
-      var json = $.parseJSON(data);
-      document.getElementById("topup_id").value = json.id_topup;
-      document.getElementById("topup_email").value = json.email;
-      document.getElementById("topup_deskripsi").innerHTML = json.deskripsi;
-      document.getElementById("topup_nominal").value = json.nominal;
-      document.getElementById("topup_status").value = json.status;
-    },
-  });
+function topup_read(id_topup, email, deskripsi, nominal, status) {
+  document.getElementById("topup_id").value = id_topup;
+  document.getElementById("topup_email").value = email;
+  document.getElementById("topup_deskripsi").innerHTML = deskripsi;
+  document.getElementById("topup_nominal").value = nominal;
+  document.getElementById("topup_status").value = status;
 }
 
 function topup_update() {
@@ -243,6 +213,7 @@ function topup_update() {
         confirmButtonText: "OK",
       });
       load("pages/admin/topup");
+      reload_atribut_user();
     },
   });
 }
@@ -263,6 +234,184 @@ function topup_delete(id) {
           text: json.message,
           confirmButtonText: "OK",
         });
+      },
+    });
+  } else {
+  }
+}
+
+// Provider
+// ------------------------------------------------------------------------- //
+
+function provider_create() {
+  var provider_nama = $("#provider_nama_new").val();
+
+  if (provider_nama == "") {
+    swal({
+      icon: "error",
+      text: "Nama provider tidak boleh kosong",
+      confirmButtonText: "OK",
+    });
+  } else {
+    $.ajax({
+      url: "proses/admin/provider.php",
+      type: "POST",
+      data: {
+        kode: "create",
+        provider_nama: provider_nama,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
+      },
+    });
+  }
+}
+
+function provider_update(id) {
+  var provider_nama = $("#provider_nama_" + id).val();
+
+  if (provider_nama == "") {
+    swal({
+      icon: "error",
+      text: "Nama provider tidak boleh kosong",
+      confirmButtonText: "OK",
+    });
+  } else {
+    $.ajax({
+      url: "proses/admin/provider.php",
+      type: "POST",
+      data: {
+        kode: "update",
+        id: id,
+        provider_nama: provider_nama,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
+      },
+    });
+  }
+}
+
+function provider_delete(id) {
+  if (confirm("Yakin ingin menghapus provider?")) {
+    $.ajax({
+      url: "proses/admin/provider.php",
+      type: "POST",
+      data: {
+        kode: "delete",
+        id: id,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
+      },
+    });
+  } else {
+  }
+}
+
+// Nominal
+// ------------------------------------------------------------------------- //
+
+function nominal_create() {
+  var nominal = $("#nominal_new").val();
+  var harga = $("#harga_new").val();
+
+  if (nominal == "" || harga == "") {
+    swal({
+      icon: "error",
+      text: "Nominal dan harga tidak boleh kosong",
+      confirmButtonText: "OK",
+    });
+  } else {
+    $.ajax({
+      url: "proses/admin/nominal.php",
+      type: "POST",
+      data: {
+        kode: "create",
+        nominal: nominal,
+        harga: harga,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
+      },
+    });
+  }
+}
+
+function nominal_update(id) {
+  var nominal = $("#nominal_" + id).val();
+  var harga = $("#harga_" + id).val();
+
+  if (nominal == "" || harga == "") {
+    swal({
+      icon: "error",
+      text: "Nominal dan harga tidak boleh kosong",
+      confirmButtonText: "OK",
+    });
+  } else {
+    $.ajax({
+      url: "proses/admin/nominal.php",
+      type: "POST",
+      data: {
+        kode: "update",
+        id: id,
+        nominal: nominal,
+        harga: harga,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
+      },
+    });
+  }
+}
+
+function nominal_delete(id) {
+  if (confirm("Yakin ingin menghapus nominal?")) {
+    $.ajax({
+      url: "proses/admin/nominal.php",
+      type: "POST",
+      data: {
+        kode: "delete",
+        id: id,
+      },
+      success: function (data) {
+        var json = $.parseJSON(data);
+        swal({
+          icon: json.status,
+          text: json.message,
+          confirmButtonText: "OK",
+        });
+        load("pages/admin/provider_nominal");
       },
     });
   } else {

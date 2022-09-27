@@ -22,10 +22,16 @@
                             $email = $_SESSION['email'];
                             require('../../includes/config.php');
                             $query = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id_user");
+                            $no = 1;
                             while ($result = mysqli_fetch_array($query)) {
+                                $data = "'" . $result['nama'] . "','" .
+                                    $result['email'] . "','" .
+                                    $result['level'] . "','" .
+                                    $result['balance'] . "','" .
+                                    $result['status'] . "'";
                             ?>
                                 <tr>
-                                    <td><?= $result['id_user']; ?></td>
+                                    <td><?= $no; ?></td>
                                     <td><?= $result['nama']; ?></td>
                                     <td><?= $result['email']; ?></td>
                                     <td><?= $result['level']; ?></td>
@@ -37,11 +43,12 @@
                                     <?php } ?>
 
                                     <td>
-                                        <button type="submit" class="badge btn-dark" onclick="user_read(<?php echo $result['id_user']; ?>)" data-toggle="modal" data-target="#user_modal_view"><i class="fa fa-pencil"></i></button>
-                                        <button type="submit" class="badge btn-danger" onclick="user_delete(<?php echo $result['id_user']; ?>)"><i class="fa fa-remove"></i></button>
+                                        <button type="submit" class="badge btn-dark" onclick="user_read(<?= $data; ?>)" data-toggle="modal" data-target="#user_modal_view"><i class="fa fa-pencil"></i></button>
+                                        <button type="submit" class="badge btn-danger" onclick="user_delete(<?= $result['id_user']; ?>)"><i class="fa fa-remove"></i></button>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php $no++;
+                            } ?>
                         </tbody>
                     </table>
                 </div>

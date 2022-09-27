@@ -10,7 +10,7 @@ $status = $_POST['user_status'];
 
 $return_arr = array();
 
-if (!$email || !$nama || !$level || !$balance || !$status) {
+if (!$email || !$nama || !$level || !$status) {
     $return_arr = array(
         "status" => "error",
         "message" => "Semua kolom harus diisi"

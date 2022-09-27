@@ -30,6 +30,7 @@ if ($metode == "") {
     $result_metode = mysqli_fetch_array($query_metode);
     $nama_metode = $result_metode['nama'];
     $jenis_metode = $result_metode['jenis'];
+    $rekening_metode = $result_metode['rekening'];
 
     $query_history = mysqli_query($mysqli, "SELECT * FROM history_topup WHERE email = '" . $email . "' AND status = 'Pending'");
     $row_history_pending = mysqli_num_rows($query_history);
@@ -51,7 +52,7 @@ if ($metode == "") {
             echo "<strong>Topup Balance Berhasil <br />";
             echo "Jenis Metode : $jenis_metode <br />";
             echo "a/n " . $nama_metode . " <br />";
-            echo "Rekening : $nominal <br />";
+            echo "Rekening : $rekening_metode <br />";
             echo "Nominal : Rp " . number_format((float)$nominal, 0, ',', '.') . ",00 <br />";
             echo date('d-m-Y H:i:s') . "<br /><br />";
             echo "Konfirmasi pembayaran dapat dilakukan melalui menu Konfirmasi Topup Balance</a>";

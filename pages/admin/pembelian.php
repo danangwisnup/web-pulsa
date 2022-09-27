@@ -21,10 +21,16 @@
                             $email = $_SESSION['email'];
                             require('../../includes/config.php');
                             $query = mysqli_query($mysqli, "SELECT * FROM history_pembelian");
+                            $no = 1;
                             while ($result = mysqli_fetch_array($query)) {
+                                $data = "'" . $result['id_pembelian'] . "','" .
+                                    $result['email'] . "','" .
+                                    $result['deskripsi'] . "','" .
+                                    $result['harga'] . "','" .
+                                    $result['status'] . "'";
                             ?>
                                 <tr>
-                                    <td><?= $result['id_pembelian']; ?></td>
+                                    <td><?= $no; ?></td>
                                     <td>(<?= $result['email']; ?>) <?= $result['deskripsi']; ?></td>
                                     <td><?= $result['harga']; ?></td>
                                     <td><?= $result['tanggal']; ?></td>
@@ -36,11 +42,12 @@
                                         <td><label class="badge badge-danger"><?= $result['status']; ?></label></td>
                                     <?php } ?>
                                     <td>
-                                        <button type="submit" class="badge btn-dark" onclick="pembelian_read(<?php echo $result['id_pembelian']; ?>)" data-toggle="modal" data-target="#pembelian_modal_view"><i class="fa fa-pencil"></i></button>
-                                        <button type="submit" class="badge btn-danger" onclick="pembelian_delete(<?php echo $result['id_pembelian']; ?>)"><i class="fa fa-remove"></i></button>
+                                        <button type="submit" class="badge btn-dark" onclick="pembelian_read(<?= $data; ?>)" data-toggle="modal" data-target="#pembelian_modal_view"><i class="fa fa-pencil"></i></button>
+                                        <button type="submit" class="badge btn-danger" onclick="pembelian_delete(<?= $result['id_pembelian']; ?>)"><i class="fa fa-remove"></i></button>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php $no++;
+                            } ?>
                         </tbody>
                     </table>
                 </div>

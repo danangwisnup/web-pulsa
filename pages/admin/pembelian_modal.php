@@ -1,4 +1,4 @@
-<div class="modal fade" id="pembelian_modal_view" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="pembelian_modal_view" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Deskripsi </label>
-                        <input type="text" class="form-control" id="pembelian_deskripsi" name="pembelian_deskripsi" readonly>
+                        <h6 id="pembelian_deskripsi" name="pembelian_deskripsi"></h6>
                     </div>
                     <div class="form-group row">
                         <div class="col">

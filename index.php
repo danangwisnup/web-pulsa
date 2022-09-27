@@ -152,8 +152,6 @@ if (!isset($_SESSION['email'])) {
     <?php include('pages/admin/pembelian_modal.php'); ?>
     <!-- modal topup -->
     <?php include('pages/admin/topup_modal.php'); ?>
-    <!-- modal provider -->
-    <?php include('pages/admin/provider_modal.php'); ?>
 
     <?php include('includes/footer.php'); ?>
   <?php } ?>

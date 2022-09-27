@@ -21,12 +21,18 @@
                             $email = $_SESSION['email'];
                             require('../../includes/config.php');
                             $query = mysqli_query($mysqli, "SELECT * FROM history_topup");
+                            $no = 1;
                             while ($result = mysqli_fetch_array($query)) {
                                 $querey_metode_topup = mysqli_query($mysqli, "SELECT * FROM metode_topup WHERE id_metode = '$result[id_metode]'");
                                 $result_metode_topup = mysqli_fetch_array($querey_metode_topup);
+                                $data = "'" . $result['id_topup'] . "','" .
+                                    $result['email'] . "','" .
+                                    $result_metode_topup['jenis'] . "','" .
+                                    $result['nominal'] . "','" .
+                                    $result['status'] . "'";
                             ?>
                                 <tr>
-                                    <td><?= $result['id_topup']; ?></td>
+                                    <td><?= $no; ?></td>
                                     <td>(<?= $result['email']; ?>) <?= $result_metode_topup['jenis']; ?></td>
                                     <td><?= $result['nominal']; ?></td>
                                     <td><?= $result['tanggal']; ?></td>
@@ -38,11 +44,12 @@
                                         <td><label class="badge badge-danger"><?= $result['status']; ?></label></td>
                                     <?php } ?>
                                     <td>
-                                        <button type="submit" class="badge btn-dark" onclick="topup_read(<?php echo $result['id_topup']; ?>)" data-toggle="modal" data-target="#topup_modal_view"><i class="fa fa-pencil"></i></button>
-                                        <button type="submit" class="badge btn-danger" onclick="topup_delete(<?php echo $result['id_topup']; ?>)"><i class="fa fa-remove"></i></button>
+                                        <button type="submit" class="badge btn-dark" onclick="topup_read(<?= $data; ?>)" data-toggle="modal" data-target="#topup_modal_view"><i class="fa fa-pencil"></i></button>
+                                        <button type="submit" class="badge btn-danger" onclick="topup_delete(<?= $result['id_topup']; ?>)"><i class="fa fa-remove"></i></button>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php $no++;
+                            } ?>
                         </tbody>
                     </table>
                 </div>

@@ -13,7 +13,7 @@ if ($id == '') {
         "message" => "ID tidak boleh kosong"
     );
 } else {
-    $query = mysqli_query($mysqli, "DELETE FROM history_pembelian WHERE id_pembelian = '$id'");
+    $query = mysqli_query($mysqli, "DELETE FROM user WHERE id_user = '$id'");
     if ($query) {
         $return_arr = array(
             "status" => "success",
