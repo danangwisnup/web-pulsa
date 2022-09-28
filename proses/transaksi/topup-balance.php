@@ -62,8 +62,6 @@ if ($metode == "") {
             $mysqli->rollback();
             echo "<div class='alert alert-danger' role='alert'><strong>Error!</strong> Topup saldo gagal.</div>";
         }
-
-        $mysqli->close();
     }
 }
 
