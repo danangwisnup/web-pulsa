@@ -20,7 +20,7 @@
                             session_start();
                             $email = $_SESSION['email'];
                             require('../../includes/config.php');
-                            $query = mysqli_query($mysqli, "SELECT * FROM history_topup");
+                            $query = mysqli_query($mysqli, "SELECT * FROM history_topup ORDER BY id_topup DESC");
                             $no = 1;
                             while ($result = mysqli_fetch_array($query)) {
                                 $querey_metode_topup = mysqli_query($mysqli, "SELECT * FROM metode_topup WHERE id_metode = '$result[id_metode]'");
@@ -33,7 +33,7 @@
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
-                                    <td>(<?= $result['email']; ?>) <?= $result_metode_topup['jenis']; ?></td>
+                                    <td><?= $result['deskripsi']; ?></td>
                                     <td><?= $result['nominal']; ?></td>
                                     <td><?= $result['tanggal']; ?></td>
                                     <?php if ($result['status'] == 'success') { ?>

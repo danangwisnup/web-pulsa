@@ -21,13 +21,10 @@
                         $no = 1;
                         $query_topup = mysqli_query($mysqli, "SELECT * FROM history_topup WHERE email = '$email' ORDER BY id_topup DESC");
                         while ($result_topup = mysqli_fetch_array($query_topup)) {
-                            $id_metode = $result_topup['id_metode'];
-                            $querey_metode_topup = mysqli_query($mysqli, "SELECT * FROM metode_topup WHERE id_metode = '$id_metode'");
-                            $result_metode_topup = mysqli_fetch_array($querey_metode_topup);
                         ?>
                             <tr>
                                 <td><?= $no; ?></td>
-                                <td><?= $result_metode_topup['jenis']; ?> - <?= $result_metode_topup['nama']; ?> - <?= $result_metode_topup['rekening']; ?></td>
+                                <td><?= $result_topup['deskripsi']; ?></td>
                                 <td><?= $result_topup['nominal']; ?></td>
                                 <td><?= $result_topup['tanggal']; ?></td>
                                 <td>

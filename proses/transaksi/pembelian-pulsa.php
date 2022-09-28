@@ -1,15 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
+$email = $_SESSION['email'];
+if (!isset($email)) {
     die("<script>window.location = '/'</script>");
 }
 ?>
 
 <?php
-
-$email = $_SESSION['email'];
-require('../../includes/config.php');
-include('../../includes/query.php');
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $nohp = $_POST['nohp'];
 $providers = $_POST['providers'];
@@ -46,19 +45,19 @@ if ($nohp == "") {
         // Mulai transaksi
         $mysqli->begin_transaction();
         $mysqli->query("UPDATE user SET balance = balance - '" . $harga_pulsa . "' WHERE email = '" . $email . "'");
-        $mysqli->query("INSERT INTO history_pembelian (id_provider,email,deskripsi,harga,tanggal,status) VALUES ('$providers','$email','Pembelian Pulsa $nominal - $nama_provider','$harga_pulsa',NOW(),'pending')");
+        $mysqli->query("INSERT INTO history_pembelian (id_provider,email,deskripsi,harga,tanggal,status) VALUES ('$providers','$email','Pembelian Pulsa $nominal - $nama_provider - $nohp','$harga_pulsa',NOW(),'pending')");
 
         if ($mysqli->commit()) {
             $mysqli->autocommit(TRUE);
             echo "<div class='alert alert-success' role='alert'>";
-            echo "<strong>Pembelian Pulsa Berhasil <br />";
+            echo "<strong>Pembelian Pulsa Berhasil </strong><br />";
             echo "Nomor HP : $nohp <br />";
             echo "Providers : $nama_provider <br />";
             echo "Nominal : Rp " . number_format((float)$nominal, 0, ',', '.') . ",00 <br />";
             echo "Harga : Rp " . number_format((float)$harga_pulsa, 0, ',', '.') . ",00 <br />";
             echo "Sisa Saldo : Rp " . number_format((float)$u_balance - $harga_pulsa, 0, ',', '.') . ",00 <br />";
             echo date('d-m-Y H:i:s');
-            echo "</strong></div>";
+            echo "</div>";
         } else {
             $mysqli->rollback();
             echo "<div class='alert alert-danger' role='alert'>";

@@ -20,7 +20,7 @@
                             session_start();
                             $email = $_SESSION['email'];
                             require('../../includes/config.php');
-                            $query = mysqli_query($mysqli, "SELECT * FROM history_pembelian");
+                            $query = mysqli_query($mysqli, "SELECT * FROM history_pembelian ORDER BY id_pembelian DESC");
                             $no = 1;
                             while ($result = mysqli_fetch_array($query)) {
                                 $data = "'" . $result['id_pembelian'] . "','" .

@@ -1,9 +1,16 @@
 <div class="card">
     <div class="card-body">
-        <button class="btn btn-dark float-right" onclick="load('pages/admin/provider-add');"><i class="fa fa-plus"></i> Add Metode Topup</button>
         <h4 class="card-title">Manajemen Metode Topup</h4>
         <form action="javascript:;" class="forms-sample" id="form">
             <div class="row">
+                <table class="table">
+                    <tr>
+                        <td><input type="text" class="form-control" id="metode_jenis_new" placeholder="Jenis"></td>
+                        <td><input type="text" class="form-control" id="metode_nama_new" placeholder="Nama"></td>
+                        <td><input type="text" class="form-control" id="metode_rekening_new" placeholder="Rekening"></td>
+                        <td><button type="submit" class="btn btn-primary" onclick="metode_create()"><i class="fa fa-plus"></i> Add Metode Topup</button></td>
+                    </tr>
+                </table>
                 <div class="col-12 table-responsive">
                     <table class="table">
                         <thead>
@@ -26,11 +33,12 @@
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
-                                    <td><?= $result['jenis']; ?></td>
-                                    <td><?= $result['nama']; ?></td>
-                                    <td><?= $result['rekening']; ?></td>
+                                    <td><input type="text" class="form-control" id="metode_jenis_<?= $result['id_metode']; ?>" value="<?= $result['jenis']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="metode_nama_<?= $result['id_metode']; ?>" value="<?= $result['nama']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="metode_rekening_<?= $result['id_metode']; ?>" value="<?= $result['rekening']; ?>"></td>
+                                    </td>
                                     <td>
-                                        <button type="submit" class="badge btn-dark" onclick="metode_read(<?php echo $result['id_metode']; ?>)" data-toggle="modal" data-target="#pembelian_modal_view"><i class="fa fa-pencil"></i></button>
+                                        <button type="submit" class="badge btn-success" onclick="metode_update(<?php echo $result['id_metode']; ?>)"><i class="fa fa-save"></i></button>
                                         <button type="submit" class="badge btn-danger" onclick="metode_delete(<?php echo $result['id_metode']; ?>)"><i class="fa fa-remove"></i></button>
                                     </td>
                                 </tr>

@@ -19947,6 +19947,7 @@ pre {
 /* Bootstrap Alerts */
 .alert {
   font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .alert i {
@@ -21975,12 +21976,12 @@ pre {
 .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .tt-hint,
 .tt-query,
 .typeahead {
-  border: 1px solid #d5dcec;
+  border: 1.85px solid #d5dcec;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 0.75rem;
+  font-size: 0.80rem;
   padding: 0.56rem 0.75rem;
-  line-height: 14px;
-  font-weight: 300;
+  line-height: 16px;
+  font-weight: 600;
 }
 
 .form-control.form-control-lg, .input-group-lg > .form-control, .input-group-lg > .asColorPicker-input, .dataTables_wrapper .input-group-lg > select, .jsgrid .jsgrid-table .jsgrid-filter-row .input-group-lg > input[type=text],
@@ -22490,6 +22491,7 @@ select.typeahead {
   font-size: 0.875rem;
   line-height: 1;
   vertical-align: top;
+  font-weight: 450;
 }
 
 .form-group.has-danger .form-control, .form-group.has-danger .asColorPicker-input, .form-group.has-danger .dataTables_wrapper select, .dataTables_wrapper .form-group.has-danger select, .form-group.has-danger .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .form-group.has-danger input[type=text], .form-group.has-danger
