@@ -26,14 +26,16 @@ if ($nohp == "") {
 } else {
 
     // Query mengambil data table provider
-    $query_provider = mysqli_query($mysqli, "SELECT * FROM provider_pulsa WHERE id_provider = '" . $providers . "'");
-    $result_provider = mysqli_fetch_array($query_provider);
-    $nama_provider = $result_provider['nama'];
+    $query = "SELECT * FROM provider_pulsa WHERE id_provider = '" . $providers . "'";
+    $result = $mysqli->query($query);
+    $row = $result->fetch_assoc();
+    $nama_provider = $row['nama'];
 
     // Query mengambil data table stock pulsa
-    $query_nominal = mysqli_query($mysqli, "SELECT * FROM nominal_pulsa WHERE nominal = '" . $nominal . "'");
-    $result_nominal = mysqli_fetch_array($query_nominal);
-    $harga_pulsa = $result_nominal['harga'];
+    $query = "SELECT * FROM nominal_pulsa WHERE nominal = '" . $nominal . "'";
+    $result = $mysqli->query($query);
+    $row = $result->fetch_assoc();
+    $harga_pulsa = $row['harga'];
 
     if ($u_balance < $harga_pulsa) {
         echo "<div class='alert alert-danger' role='alert'><strong>Error!</strong> Saldo anda tidak mencukupi.</div>";
@@ -64,7 +66,9 @@ if ($nohp == "") {
             echo "<strong>Pembelian Pulsa Gagal</strong>";
             echo "</div>";
         }
-
-        $mysqli->close();
     }
 }
+
+// mysqli close
+$mysqli->close();
+

@@ -1,6 +1,14 @@
 <?php
-session_status();
-require('../../includes/config.php');
+session_start();
+$email = $_SESSION['email'];
+if (!isset($email)) {
+    die("<script>window.location = '/'</script>");
+}
+?>
+
+<?php
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $return_arr = array();
 $kode = $_POST['kode'];
@@ -52,6 +60,8 @@ if ($kode == "create") {
     }
 }
 
+// menampilkan data dalam bentuk json
 echo json_encode($return_arr);
 
+// mysqli close
 $mysqli->close();

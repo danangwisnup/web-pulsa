@@ -49,9 +49,9 @@ include('includes/header.php');
                 $alert_login = "<strong>Error!</strong> Login failed";
             }
         }
-        //close mysqli connection
-        $mysqli->close();
     }
+    //close mysqli connection
+    $mysqli->close();
 } ?>
 <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">

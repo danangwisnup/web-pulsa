@@ -57,9 +57,9 @@ include('includes/header.php');
             $alert_register_success = '<strong>Success!</strong> Register success, please <a href="login">login</a>';
             header('refresh: 3; url=login');
         }
-        //close mysqli connection
-        $mysqli->close();
     }
+    //close mysqli connection
+    $mysqli->close();
 } ?>
 
 <div class="container-scroller">

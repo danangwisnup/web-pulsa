@@ -1,14 +1,22 @@
 <?php
 session_start();
-require('../../includes/config.php');
+$email = $_SESSION['email'];
+if (!isset($email)) {
+    die("<script>window.location = '/'</script>");
+}
+?>
+
+<?php
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $return_arr = array();
 $kode = $_POST['kode'];
 
 if ($kode == "create") {
     $provider_name = $_POST['provider_nama'];
-    $query = mysqli_query($mysqli, "INSERT INTO provider_pulsa (nama) VALUES ('$provider_name')");
-    if ($query) {
+    $mysqli->query("INSERT INTO provider_pulsa (nama) VALUES ('$provider_name')");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Data berhasil ditambahkan"
@@ -22,8 +30,8 @@ if ($kode == "create") {
 } else if ($kode == "update") {
     $id = $_POST['id'];
     $provider_name = $_POST['provider_nama'];
-    $query = mysqli_query($mysqli, "UPDATE provider_pulsa SET nama = '$provider_name' WHERE id_provider = '$id'");
-    if ($query) {
+    $mysqli->query("UPDATE provider_pulsa SET nama = '$provider_name' WHERE id_provider = '$id'");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Data berhasil diubah"
@@ -36,8 +44,8 @@ if ($kode == "create") {
     }
 } else {
     $id = $_POST['id'];
-    $query = mysqli_query($mysqli, "DELETE FROM provider_pulsa WHERE id_provider = '$id'");
-    if ($query) {
+    $mysqli->query("DELETE FROM provider_pulsa WHERE id_provider = '$id'");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Data berhasil dihapus"
@@ -50,6 +58,8 @@ if ($kode == "create") {
     }
 }
 
+// menampilkan data dalam bentuk json
 echo json_encode($return_arr);
 
+// mysqli close
 $mysqli->close();

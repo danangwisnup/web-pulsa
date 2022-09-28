@@ -25,15 +25,16 @@ if ($metode == "") {
 } else {
 
     // Query mengambil data table metode_topup
-    $query_metode = mysqli_query($mysqli, "SELECT * FROM metode_topup WHERE id_metode = '" . $metode . "'");
-    $result_metode = mysqli_fetch_array($query_metode);
-    $nama_metode = $result_metode['nama'];
-    $jenis_metode = $result_metode['jenis'];
-    $rekening_metode = $result_metode['rekening'];
+    $query = "SELECT * FROM metode_topup WHERE id_metode = '" . $metode . "'";
+    $result = $mysqli->query($query);
+    $row = $result->fetch_assoc();
+    $nama_metode = $row['nama'];
+    $jenis_metode = $row['jenis'];
+    $rekening_metode = $row['rekening'];
 
     // Query mengambil data table history_topup
-    $query_history = mysqli_query($mysqli, "SELECT * FROM history_topup WHERE email = '" . $email . "' AND status = 'Pending'");
-    $row_history_pending = mysqli_num_rows($query_history);
+    $query = "SELECT * FROM history_topup WHERE email = '" . $email . "' AND status = 'Pending'";
+    $row_history_pending = $mysqli->query($query)->num_rows;
 
     if ($row_history_pending > 0) {
         echo "<div class='alert alert-danger' role='alert'><strong>Error!</strong> Anda masih memiliki transaksi topup yang belum selesai.</div>";
@@ -65,3 +66,6 @@ if ($metode == "") {
         $mysqli->close();
     }
 }
+
+// mysqli close
+$mysqli->close();

@@ -1,7 +1,14 @@
 <?php
 session_start();
 $email = $_SESSION['email'];
-require('../../includes/config.php');
+if (!isset($email)) {
+    die("<script>window.location = '/'</script>");
+}
+?>
+
+<?php
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $return_arr = array();
 $kode = $_POST['kode'];
@@ -11,8 +18,8 @@ if ($kode == "create") {
     $jenis = $_POST['jenis'];
     $rekening = $_POST['rekening'];
 
-    $query = mysqli_query($mysqli, "INSERT INTO metode_topup (nama, jenis, rekening) VALUES ('$nama', '$jenis', '$rekening')");
-    if ($query) {
+    $mysqli->query("INSERT INTO metode_topup (nama, jenis, rekening) VALUES ('$nama', '$jenis', '$rekening')");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Metode Topup Berhasil Ditambahkan"
@@ -29,8 +36,8 @@ if ($kode == "create") {
     $jenis = $_POST['jenis'];
     $rekening = $_POST['rekening'];
 
-    $query = mysqli_query($mysqli, "UPDATE metode_topup SET nama='$nama', jenis='$jenis', rekening='$rekening' WHERE id_metode='$id'");
-    if ($query) {
+    $mysqli->query("UPDATE metode_topup SET nama = '$nama', jenis = '$jenis', rekening = '$rekening' WHERE id_metode = '$id'");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Metode Topup Berhasil Diupdate"
@@ -44,8 +51,8 @@ if ($kode == "create") {
 } else {
     $id = $_POST['id'];
 
-    $query = mysqli_query($mysqli, "DELETE FROM metode_topup WHERE id_metode='$id'");
-    if ($query) {
+    $mysqli->query("DELETE FROM metode_topup WHERE id_metode='$id'");
+    if ($mysqli) {
         $return_arr = array(
             "status" => "success",
             "message" => "Metode Topup Berhasil Dihapus"
@@ -58,6 +65,8 @@ if ($kode == "create") {
     }
 }
 
+// menampilkan data dalam bentuk json
 echo json_encode($return_arr);
 
+// mysqli close
 $mysqli->close();

@@ -50,19 +50,39 @@ function pembelian_pulsa() {
   var providers = $("#providers").val();
   var nominal = $("#nominal").val();
 
-  $.ajax({
-    url: "proses/transaksi/pembelian-pulsa.php",
-    type: "POST",
-    data: {
-      nohp: nohp,
-      providers: providers,
-      nominal: nominal,
-    },
-    success: function (data) {
-      $("#result").html(data);
-      reload_atribut_user();
-    },
-  });
+  if (nohp == "" || providers == "" || nominal == "") {
+    swal({
+      icon: "error",
+      text: "Mohon isi semua data dengan benar!",
+      confirmButtonText: "OK",
+    });
+  } else {
+    swal({
+      title: "Konfirmasi Pembelian",
+      text: "Yakin ingin membeli pulsa?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        $.ajax({
+          url: "proses/transaksi/pembelian-pulsa.php",
+          type: "POST",
+          data: {
+            nohp: nohp,
+            providers: providers,
+            nominal: nominal,
+          },
+          success: function (data) {
+            $("#result").html(data);
+            reload_atribut_user();
+          },
+        });
+      } else {
+        swal("Pembelian Pulsa Dibatalkan!");
+      }
+    });
+  }
 }
 
 // User: Topup Balance
@@ -72,17 +92,37 @@ function topup_balance() {
   var metode = $("#metode").val();
   var nominal = $("#nominal").val();
 
-  $.ajax({
-    url: "proses/transaksi/topup-balance.php",
-    type: "POST",
-    data: {
-      metode: metode,
-      nominal: nominal,
-    },
-    success: function (data) {
-      $("#result").html(data);
-    },
-  });
+  if (metode == "" || nominal == "") {
+    swal({
+      icon: "error",
+      text: "Mohon isi semua data dengan benar!",
+      confirmButtonText: "OK",
+    });
+  } else {
+    swal({
+      title: "Konfirmasi Topup",
+      text: "Yakin ingin melakukan topup?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        $.ajax({
+          url: "proses/transaksi/topup-balance.php",
+          type: "POST",
+          data: {
+            metode: metode,
+            nominal: nominal,
+          },
+          success: function (data) {
+            $("#result").html(data);
+          },
+        });
+      } else {
+        swal("Topup Balance Dibatalkan!");
+      }
+    });
+  }
 }
 
 // Admin: Manajemen User
@@ -128,26 +168,35 @@ function user_update() {
 }
 
 function user_delete(id) {
-  if (confirm("Yakin ingin menghapus user?")) {
-    $.ajax({
-      url: "proses/admin/user.php",
-      type: "POST",
-      data: {
-        kode: "delete",
-        id: id,
-      },
-      success: function (data) {
-        load("pages/admin/user");
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus user ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/user.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          load("pages/admin/user");
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+        },
+      });
+    } else {
+      swal("User Tidak Dihapus!");
+    }
+  });
 }
 
 // Admin: Manajemen Pembelian
@@ -186,26 +235,35 @@ function pembelian_update() {
 }
 
 function pembelian_delete(id) {
-  if (confirm("Yakin ingin menghapus data pembelian?")) {
-    $.ajax({
-      url: "proses/admin/pembelian.php",
-      type: "POST",
-      data: {
-        kode: "delete",
-        id: id,
-      },
-      success: function (data) {
-        load("pages/admin/pembelian");
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus pembelian ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/pembelian.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          load("pages/admin/pembelian");
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+        },
+      });
+    } else {
+      swal("Pembelian Tidak Dihapus!");
+    }
+  });
 }
 
 // Admin: Manajemen Topup Balance
@@ -224,9 +282,10 @@ function topup_update() {
   var topup_status = $("#topup_status").val();
 
   $.ajax({
-    url: "proses/admin/topup_update.php",
+    url: "proses/admin/topup.php",
     type: "POST",
     data: {
+      kode: "update",
       topup_id: topup_id,
       topup_status: topup_status,
     },
@@ -244,25 +303,35 @@ function topup_update() {
 }
 
 function topup_delete(id) {
-  if (confirm("Yakin ingin menghapus data topup?")) {
-    $.ajax({
-      url: "proses/admin/topup_delete.php",
-      type: "POST",
-      data: {
-        id: id,
-      },
-      success: function (data) {
-        load("pages/admin/topup");
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus topup ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/topup.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          load("pages/admin/topup");
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+        },
+      });
+    } else {
+      swal("Topup Tidak Dihapus!");
+    }
+  });
 }
 
 // Admin: Provider
@@ -330,26 +399,35 @@ function provider_update(id) {
 }
 
 function provider_delete(id) {
-  if (confirm("Yakin ingin menghapus provider?")) {
-    $.ajax({
-      url: "proses/admin/provider.php",
-      type: "POST",
-      data: {
-        kode: "delete",
-        id: id,
-      },
-      success: function (data) {
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-        load("pages/admin/provider_nominal");
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus provider ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/provider.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+          load("pages/admin/provider_nominal");
+        },
+      });
+    } else {
+      swal("Provider Tidak Dihapus!");
+    }
+  });
 }
 
 // Admin: Nominal
@@ -421,26 +499,35 @@ function nominal_update(id) {
 }
 
 function nominal_delete(id) {
-  if (confirm("Yakin ingin menghapus nominal?")) {
-    $.ajax({
-      url: "proses/admin/nominal.php",
-      type: "POST",
-      data: {
-        kode: "delete",
-        id: id,
-      },
-      success: function (data) {
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-        load("pages/admin/provider_nominal");
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus nominal ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/nominal.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+          load("pages/admin/provider_nominal");
+        },
+      });
+    } else {
+      swal("Nominal Tidak Dihapus!");
+    }
+  });
 }
 
 // Admin: Metode topup
@@ -516,24 +603,33 @@ function metode_update(id) {
 }
 
 function metode_delete(id) {
-  if (confirm("Yakin ingin menghapus metode topup?")) {
-    $.ajax({
-      url: "proses/admin/metode_topup.php",
-      type: "POST",
-      data: {
-        kode: "delete",
-        id: id,
-      },
-      success: function (data) {
-        var json = $.parseJSON(data);
-        swal({
-          icon: json.status,
-          text: json.message,
-          confirmButtonText: "OK",
-        });
-        load("pages/admin/metode_topup");
-      },
-    });
-  } else {
-  }
+  swal({
+    title: "Konfirmasi Hapus",
+    text: "Yakin ingin menghapus metode topup ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: "proses/admin/metode_topup.php",
+        type: "POST",
+        data: {
+          kode: "delete",
+          id: id,
+        },
+        success: function (data) {
+          var json = $.parseJSON(data);
+          swal({
+            icon: json.status,
+            text: json.message,
+            confirmButtonText: "OK",
+          });
+          load("pages/admin/metode_topup");
+        },
+      });
+    } else {
+      swal("Metode Topup Tidak Dihapus!");
+    }
+  });
 }

@@ -1,7 +1,14 @@
 <?php
 session_start();
 $email = $_SESSION['email'];
-require('../../includes/config.php');
+if (!isset($email)) {
+    die("<script>window.location = '/'</script>");
+}
+?>
+
+<?php
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $return_arr = array();
 $kode = $_POST['kode'];
@@ -55,7 +62,6 @@ if ($kode == "update") {
                 $mysqli->rollback();
             }
         }
-        $mysqli->close();
     }
 } else {
     $id = $_POST['id'];

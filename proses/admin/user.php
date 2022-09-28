@@ -1,6 +1,14 @@
 <?php
 session_start();
-require('../../includes/config.php');
+$email = $_SESSION['email'];
+if (!isset($email)) {
+    die("<script>window.location = '/'</script>");
+}
+?>
+
+<?php
+require_once('../../includes/config.php');
+include_once('../../includes/query.php');
 
 $return_arr = array();
 $kode = $_POST['kode'];
@@ -18,8 +26,8 @@ if ($kode == "update") {
             "message" => "Semua kolom harus diisi"
         );
     } else {
-        $query = mysqli_query($mysqli, "UPDATE user SET nama = '$nama', level = '$level', balance = '$balance', status = '$status' WHERE email = '$email'");
-        if ($query) {
+        $mysqli->query("UPDATE user SET nama = '$nama', level = '$level', balance = '$balance', status = '$status' WHERE email = '$email'");
+        if ($mysqli) {
             $return_arr = array(
                 "status" => "success",
                 "message" => "Data berhasil diubah"
@@ -40,8 +48,8 @@ if ($kode == "update") {
             "message" => "ID tidak boleh kosong"
         );
     } else {
-        $query = mysqli_query($mysqli, "DELETE FROM user WHERE id_user = '$id'");
-        if ($query) {
+        $mysqli->query("DELETE FROM user WHERE id_user = '$id'");
+        if ($mysqli) {
             $return_arr = array(
                 "status" => "success",
                 "message" => "Data berhasil dihapus"
@@ -55,6 +63,8 @@ if ($kode == "update") {
     }
 }
 
+// menampilkan data dalam bentuk json
 echo json_encode($return_arr);
 
+// mysqli close
 $mysqli->close();
