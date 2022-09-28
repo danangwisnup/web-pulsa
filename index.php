@@ -147,11 +147,11 @@ if (!isset($_SESSION['email'])) {
     <!-- container-scroller -->
 
     <!-- modal user -->
-    <?php include('pages/admin/user_modal.php'); ?>
+    <?php include('pages/admin/modal/user_modal.php'); ?>
     <!-- modal pembelian -->
-    <?php include('pages/admin/pembelian_modal.php'); ?>
+    <?php include('pages/admin/modal/pembelian_modal.php'); ?>
     <!-- modal topup -->
-    <?php include('pages/admin/topup_modal.php'); ?>
+    <?php include('pages/admin/modal/topup_modal.php'); ?>
 
     <?php include('includes/footer.php'); ?>
   <?php } ?>
