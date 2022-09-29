@@ -105,7 +105,6 @@
                         <a class="nav-item dropdown-item" href="javascript:;" onclick="load('pages/transaksi/history-pembelian');">Pembelian Pulsa</a>
                         <div class="dropdown-divider"></div>
                         <a class="nav-item dropdown-item" href="javascript:;" onclick="load('pages/transaksi/history-topup');">Topup Balance</a>
-                        </a>
                     </div>
                 </li>
                 <?php if ($u_level == "admin") : ?>
@@ -124,7 +123,6 @@
                             <a class="nav-item dropdown-item" href="javascript:;" onclick="load('pages/admin/provider_nominal');">Manajemen Provider</a>
                             <div class="dropdown-divider"></div>
                             <a class="nav-item dropdown-item" href="javascript:;" onclick="load('pages/admin/metode_topup');">Manajemen Metode Topup</a>
-
                         </div>
                     </li>
                 <?php endif; ?>
